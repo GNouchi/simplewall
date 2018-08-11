@@ -1,0 +1,106 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        .landing{
+            padding:0.5em;
+            margin:0px;
+            color:#b0bec5 ;
+        }
+        .errorbox ul{
+            margin:0px;
+            background:#eceff1 ;
+        }
+        .collapsible{
+            background: #e3f2fd 
+        }
+    </style>
+</head>
+<body>
+    <div class = "container" >
+        <h1 class="landing"> Welcome! </h1>
+<div class = "container errorbox">
+    <ul class = "browser-default">
+    {% with errors = get_flashed_messages(category_filter=["error"]) %}
+    {% if errors %}
+        {%- for msg in errors %}
+        <li>{{ msg }}</li>
+        {% endfor -%}
+    {% endif %}
+    {% endwith %}
+    </ul>
+</div>
+
+
+
+
+<!-- collapsable login header -->
+<ul class="collapsible">
+<li>                     
+<div class="collapsible-header"><i class="material-icons">exit_to_app</i>Login</div>
+<div class="collapsible-body">
+<!--inner container(LOGIN) -->
+<div class = "container" >
+  <div class="row">
+    <form action ="login" method = "POST" class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input  required="True" name = "email" type="text" class="validate">
+          <label>Email</label>
+        </div>
+        <div class="input-field col s6">
+          <input  required="True" name = "password" type="text" class="validate">
+          <label>Password</label>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>                            
+</div>
+<!-- END CONTAINER DIV -->
+</div>
+</li>
+<!-- SECOND DROPDOWN(REGISTRATION) -->
+<li>                     
+<div class="collapsible-header"><i class="material-icons">account_circle</i>Register</div>
+<div class="collapsible-body">
+<!--inner container(REGISTRATION) -->
+<div class = "container" >
+    <form action="register" method = "POST" class="col s12">
+        <div class="row">
+            <div class="input-field col s6">
+                <input placeholder="Name or User Name" name="user_name" type="text" class="validate">
+            </div>
+            <div class="input-field col s6">
+                <input name="email" type="text" class="validate" placeholder="Email">
+            </div>
+            <div class="input-field col s6">
+                <input name="password" type="password" class="validate" placeholder="Password">
+            </div>
+            <div class="input-field col s6">
+                <input name="confirm_password" type="password" class="validate" placeholder="Confirm Password">
+            </div>            
+        </div>
+        <button class="btn waves-effect waves-light" type="submit">REGISTER</button>
+    </form>
+</div>
+<!-- END CONTAINER DIV -->
+</div>
+</li>
+</ul>
+<!-- END COLLAPSIBLE -->
+</div>
+
+
+
+
+    <script type = "text/javascript"src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>           
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+
+</body>
+  </html>

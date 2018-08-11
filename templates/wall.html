@@ -1,0 +1,140 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+    .usertalk{
+        margin-top:1em;
+    }
+    .messagerow{
+        text-indent: 3em;
+    }
+    .close{
+        margin-top: 1em;
+        border: none;
+        border-radius: 3px
+    }
+    .input-field{
+        margin:0px;
+    }
+    .rightbox{
+        padding:0px;
+    }
+    .btn-small {
+        height: 24px;
+        line-height: 24px;
+        padding: 0 0.5rem;
+    }
+    .leftcol{
+        background: #eceff1 ;
+    }
+    .master{
+        padding:2em;
+        padding-bottom: 0px;
+        padding-top: 0px;
+    }
+    .collapsible{
+        margin: 2em;
+        background: #e3f2fd 
+    }
+    .errorbox ul{
+        margin:0px;
+        background:#eceff1 ;
+    }
+    .landing{
+            padding:0.5em;
+            padding-bottom: 0px;
+            margin:0px;
+            color:#b0bec5 ;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class = "container maincont" >
+<h1 class="landing"> Welcome! </h1>
+        
+<!-- collapsable login header -->    
+<ul class="collapsible">
+<li>    
+<div class="collapsible-header">    
+        <form action="logout" method="POST">
+            <button class="btn waves-effect waves-light logout" type="submit" >
+                <i class="material-icons left">power_settings_new</i>  Log Out
+            </button>
+        </form>          
+</div>
+<!--inner collapsable(Error Logging) -->
+<div class="collapsible-body">
+    <div class = "container errorbox">
+        <ul class = "browser-default">
+        {% with errors = get_flashed_messages(category_filter=["error"]) %}
+        {% if errors %}
+            {%- for msg in errors %}
+            <li>{{ msg }}</li>
+            {% endfor -%}
+        {% endif %}
+        {% endwith %}
+        </ul>
+    </div>
+</div>
+<!-- END CONTAINER DIV -->
+</li>
+</ul>
+<!-- END COLLAPSIBLE -->
+
+<!-- this holds everything together -->
+<div class="row master">
+    <!-- START left container -->
+    
+<div class = "col sm8 m8 l8 leftcol">
+    <h5> {{num_msg}} for you {{user_name}} </h5>
+{%for x in messagehist:%}
+    <div class = "row">    
+        <div class = "col s11">        
+            <p>{{x['from_name']}} said {{msg_age}}  </p>
+            <p class="messagerow"> {{x['message']}} </p>
+        </div>
+        <div class = "col s1">
+            <form action="deletemessage" method="post">
+            <button class= "close" name=msg_id value ={{x['message_id']}} type="submit" class="close button" >&times;</button>
+            </form>   
+        </div>
+    </div>
+    {%endfor%}    
+</div>
+    
+<!-- END LEFT container -->
+
+
+<!-- START RIGHT container -->
+<div class = "col sm4 m4 l4 rightbox">
+    {% for x in lookup:%}
+        <div class="row">
+            <form class="col s12" action="sendmessage" method = "POST">
+                <div class="input-field col s10">
+                    <i class="material-icons prefix">account_circle</i>
+                    <textarea name ="text" class="materialize-textarea" placeholder ={{x['name']}} ></textarea>
+                </div>
+                <button name="id" value = "{{x['id']}}" class="btn-small waves-effect waves-light pulse usertalk" type="submit"><i class="material-icons">send</i></button>
+            </form>
+        </div>
+    {% endfor %}
+</div>
+<!-- END RIGHT container -->
+</div>
+<!-- end body container -->
+<!-- last dive is to maintain page spacing -->
+</div>
+
+
+    <script type = "text/javascript"src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>           
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+
+</body>
+  </html>
